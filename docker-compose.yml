@@ -1,7 +1,7 @@
 version: '3.5' # 3.5 because we currently use it on CentOS 7
 services:
   ToolKitsBot:
-    image: oscarvsp/tool-kits-bot:latest # or version like :1.2
+    image: oscarvsp/toolkitsbot:latest # or version like :1.2
     container_name: toolkitsbot
     build:
       platforms:
