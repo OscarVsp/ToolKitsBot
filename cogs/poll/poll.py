@@ -185,9 +185,8 @@ class Poll(commands.Cog):
 
     @commands.slash_command(
         name="poll",
-        description="Envoyer un embed",
+        description="Create a reaction poll to be sent in a channel",
         dm_permission=False,
-        default_member_permissions=disnake.Permissions.all(),
     )
     async def embed(self, inter: disnake.ApplicationCommandInteraction):
         await inter.response.defer(ephemeral=True)

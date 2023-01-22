@@ -111,7 +111,8 @@ class Export(commands.Cog):
         
     @commands.slash_command(
         name="role",
-        description="Create role"
+        description="Create role",
+        default_member_permissions=disnake.Permissions.all()
     )
     async def role(self, inter: disnake.ApplicationCommandInteraction):
         pass

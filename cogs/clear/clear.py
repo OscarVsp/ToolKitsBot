@@ -72,7 +72,7 @@ class Clear(commands.Cog):
     async def clear(self, inter):
         pass
 
-    @clear.sub_command(name="message", description="Supprimer les derniers messages du channel")
+    @clear.sub_command(name="message", description="Delete the last messages of this channel")
     async def clearMessage(
         self,
         inter: disnake.ApplicationCommandInteraction,
@@ -156,7 +156,7 @@ class Clear(commands.Cog):
             )
         await inter.delete_original_response(delay=2)
         
-    @clear.sub_command(name="roles", description="Supprimer des roles")
+    @clear.sub_command(name="roles", description="Delete some roles")
     async def clearRole(
         self,
         inter: disnake.ApplicationCommandInteraction,

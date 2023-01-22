@@ -278,8 +278,6 @@ class Embed(commands.Cog):
 
     @commands.slash_command(
         name="embed",
-        description="Envoyer un embed",
-        dm_permission=False,
         default_member_permissions=disnake.Permissions.all(),
     )
     async def embed(self, inter: disnake.ApplicationCommandInteraction):
@@ -288,7 +286,7 @@ class Embed(commands.Cog):
         
     @embed.sub_command(
         name="channel",
-        description="Envoyer un embed dans un ou plusieurs channels"
+        description="Send an embed in one/multiple channels"
     )
     async def embed_channel(self, inter: disnake.ApplicationCommandInteraction):
         await inter.response.defer(ephemeral=True)
@@ -297,7 +295,7 @@ class Embed(commands.Cog):
         
     @embed.sub_command(
         name="user",
-        description="Envoyer un embed à un ou plusieurs utilisateurs"
+        description="Send an embed to users in DM"
     )
     async def embed_user(self, inter: disnake.ApplicationCommandInteraction):
         await inter.response.defer(ephemeral=True)
