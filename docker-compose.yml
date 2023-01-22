@@ -1,0 +1,19 @@
+version: '3.5' # 3.5 because we currently use it on CentOS 7
+services:
+  ToolKitsBot:
+    image: oscarvsp/tool-kits-bot:latest # or version like :1.2
+    container_name: toolkitsbot
+    build:
+      platforms:
+      - "linux/amd64"
+      - "linux/arm64"
+      context: "."
+      image: tool-kits-bot
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    volumes:
+      - ./:/usr/src/toolkitsbot
+    restart: always # or unless-stopped
+    mem_limit: 1g # memory limit for the container
+    # cpus: 0.5 # cpu limit for the container
