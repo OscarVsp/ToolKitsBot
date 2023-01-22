@@ -8,4 +8,4 @@ I don't plan to make a well documented repo here, but feel free check the code i
 
 # docker
 
-`docker push oscarvsp/toolkitsbot:amd-latest`
+`docker run oscarvsp/toolkitsbot:amd-latest`
