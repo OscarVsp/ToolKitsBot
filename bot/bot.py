@@ -74,6 +74,7 @@ class Bot(InteractionBot):
             logging.info("| /!\ Cogs not loaded (see error above): " + ", ".join(self.cog_not_loaded))
         logging.info(f"| Bot Ready !")
         logging.info("-" * 50)
+        await self.change_presence(activity=disnake.Activity(name='"/" commands'))
 
     def load_commands(self) -> None:
         for extension in os.listdir(f"./cogs"):
