@@ -8,10 +8,10 @@ services:
       - "linux/amd64"
       - "linux/arm64"
       context: "."
-      image: tool-kits-bot
+      image: toolkitsbot
       dockerfile: Dockerfile
     env_file:
-      - .env
+      - toolkitsbot.env
     volumes:
       - ./:/usr/src/toolkitsbot
     restart: always # or unless-stopped
