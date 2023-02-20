@@ -16,7 +16,7 @@ class Clear(commands.Cog):
         self.bot: Bot = bot
         
     @commands.message_command(
-        name="clear_up_to_here",
+        name="clear_up_to_this",
         default_member_permissions=disnake.Permissions.all(),
         dm_permission=False,
     ) 
