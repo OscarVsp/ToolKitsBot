@@ -372,3 +372,4 @@ FodyWeavers.xsd
 .vscode/
 cogs/Dofus/almanax.db
 cogs/Basic/lore.db
+toolkitsbot.env
