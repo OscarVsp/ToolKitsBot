@@ -376,38 +376,22 @@ class Embed(commands.Cog):
         await inter.response.defer(ephemeral=True)
         EM = EmbedEditorMentionable(inter)
         await EM.send()
-        
-    @embed.sub_command(
-        name="edit",
-        description="Edit existing embed")
-    async def embed_edit(self, interaction: disnake.ApplicationCommandInteraction, msg_link: str = commands.Param(name="message_link")):
+                    
+    @commands.message_command(
+        name="edit_embed"
+    )
+    async def embed_edit(self, interaction: disnake.MessageCommandInteraction):
         await interaction.response.defer(ephemeral=True)
-        try:
-            msg_id = int(msg_link.split('/')[-1])
-        except ValueError:
-            await interaction.edit_original_response(embed=disnake.Embed(
-                title="**Embed editor**",
-                description=f"`{msg_link}` n'est pas un lien valide.",
-                color=disnake.Colour.red()
-            ))
-        msg: disnake.Message = await interaction.channel.fetch_message(msg_id)
-        if msg == None:
-            await interaction.edit_original_response(embed=disnake.Embed(
-                title="**Embed editor**",
-                description=f"Message introuvable. Vous devez executer cette commande dans le même channel que le message à éditer.",
-                color=disnake.Colour.orange()
-            ))
-        elif msg.author != self.bot.user:
+        if interaction.target.author != self.bot.user:
             await interaction.edit_original_response(embed=disnake.Embed(
                 title="**Embed editor**",
                 description=f"je ne peux editer que des messages venant de moi.",
                 color=disnake.Colour.orange()
             ))
         else:
-            EM = EmbedEditor(interaction, msg)
+            EM = EmbedEditor(interaction, interaction.target)
             await EM.send()
             
-        
     @commands.message_command(
         name="embed_export"
     )
