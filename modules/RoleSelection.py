@@ -27,7 +27,6 @@ class RoleSelectionView(ConfirmationView):
         self.role.max_values = min(25, size[1]) if type(size) == list else (min(25, size) if size != None else 25)
         self.confirm.disabled = True
 
-
     @property
     def embed(self) -> disnake.Embed:
         embed = super().embed
@@ -46,7 +45,6 @@ class RoleSelectionView(ConfirmationView):
         )
         return embed
 
-    
     @disnake.ui.role_select(
         min_values=1,
         max_values=1,
@@ -69,7 +67,8 @@ class RoleSelectionReturnData(ConfirmationReturnData):
     @property
     def roles(self) -> Optional[List[disnake.Role]]:
         return self._roles
-    
+
+
 async def roleSelection(
     target: Target,
     embeds: List[disnake.Embed] = [],
@@ -146,4 +145,3 @@ async def roleSelection(
             )
         )
     )
-

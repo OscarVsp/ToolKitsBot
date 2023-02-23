@@ -131,7 +131,8 @@ class ConfirmationReturnData:
 
     def __bool__(self) -> bool:
         return self.is_confirmed
-    
+
+
 async def process(confirmationvView: ConfirmationView) -> ConfirmationView:
     await confirmationvView.send()
     await confirmationvView.wait()
@@ -194,4 +195,3 @@ async def confirmation(
             )
         )
     )
-

@@ -1,10 +1,11 @@
+# -*- coding: utf-8 -*-
 import asyncio
 from typing import List
+
 import disnake
 from disnake.ext import commands
 
 from bot.bot import Bot
-
 from modules.assets import *
 from modules.Confirmation import *
 from modules.RoleSelection import *
@@ -14,12 +15,12 @@ class Clear(commands.Cog):
     def __init__(self, bot):
         """Initialize the cog"""
         self.bot: Bot = bot
-        
+
     @commands.message_command(
         name="Clear up to this",
         default_member_permissions=disnake.Permissions.all(),
         dm_permission=False,
-    ) 
+    )
     async def clear_msg(self, inter: disnake.MessageCommandInteraction):
         await inter.response.defer(ephemeral=True)
         n = 0
@@ -27,7 +28,7 @@ class Clear(commands.Cog):
             n += 1
             if message == inter.target:
                 break
-            
+
         confirm: ConfirmationReturnData = await confirmation(
             inter,
             title=f"__**Suppression de {n} message(s)**__",
@@ -62,7 +63,6 @@ class Clear(commands.Cog):
                 view=None,
             )
         await inter.delete_original_response(delay=2)
-        
 
     @commands.slash_command(
         name="clear",
@@ -100,16 +100,12 @@ class Clear(commands.Cog):
             )
         elif confirm.is_cancelled:
             await inter.edit_original_message(
-                embed=disnake.Embed(
-                    description=f":o: Message suppression cancelled", color=disnake.Colour.dark_grey()
-                ),
+                embed=disnake.Embed(description=f":o: Message suppression cancelled", color=disnake.Colour.dark_grey()),
                 view=None,
             )
         else:
             await inter.edit_original_message(
-                embed=disnake.Embed(
-                    description=f":o: Message suppression timeout", color=disnake.Colour.dark_grey()
-                ),
+                embed=disnake.Embed(description=f":o: Message suppression timeout", color=disnake.Colour.dark_grey()),
                 view=None,
             )
         await inter.delete_original_response(delay=2)
@@ -125,7 +121,7 @@ class Clear(commands.Cog):
             inter,
             title=f"__**Category *{categorie.name}* suppression**__",
             description=f"Are you sure to delete the category ***{categorie.mention}*** ?\nThis will also delete the {len(categorie.channels)} channels in it:\n"
-            + "\n".join(channel.mention for channel in categorie.channels)
+            + "\n".join(channel.mention for channel in categorie.channels),
         ):
             await inter.edit_original_message(
                 embed=disnake.Embed(
@@ -155,16 +151,14 @@ class Clear(commands.Cog):
                 view=None,
             )
         await inter.delete_original_response(delay=2)
-        
+
     @clear.sub_command(name="roles", description="Delete some roles")
     async def clearRole(
         self,
         inter: disnake.ApplicationCommandInteraction,
     ):
         rolesData = await roleSelection(
-            inter,
-            title=f"__**Roles suppression**__",
-            description=f"Select roles to delete"
+            inter, title=f"__**Roles suppression**__", description=f"Select roles to delete"
         )
         if rolesData:
             await inter.edit_original_message(
@@ -179,7 +173,7 @@ class Clear(commands.Cog):
                 try:
                     await role.delete()
                 except (disnake.Forbidden, disnake.HTTPException):
-                    rolesRemaining.append(role) 
+                    rolesRemaining.append(role)
             if len(rolesRemaining) == 0:
                 await inter.edit_original_message(
                     embed=disnake.Embed(
@@ -188,14 +182,16 @@ class Clear(commands.Cog):
                     )
                 )
             else:
-                embed=disnake.Embed(
+                embed = disnake.Embed(
                     description=f":broom: {len(rolesData.roles) - len(rolesRemaining)} role(s) deleted ! :broom:",
                     color=disnake.Colour.orange(),
                 )
-                embed.add_field(name="⚠️", value="Some roles could not be deleted because I don't have the permission or because there are bot roles:\n"+"\n".join([role.mention for role in rolesRemaining]))
-                await inter.edit_original_message(
-                    embed=embed
+                embed.add_field(
+                    name="⚠️",
+                    value="Some roles could not be deleted because I don't have the permission or because there are bot roles:\n"
+                    + "\n".join([role.mention for role in rolesRemaining]),
                 )
+                await inter.edit_original_message(embed=embed)
                 await asyncio.sleep(5)
         else:
             await inter.edit_original_message(
@@ -206,6 +202,7 @@ class Clear(commands.Cog):
                 view=None,
             )
         await inter.delete_original_response(delay=2)
-            
+
+
 def setup(bot: commands.InteractionBot):
     bot.add_cog(Clear(bot))

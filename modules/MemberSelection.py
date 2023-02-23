@@ -27,7 +27,6 @@ class MemberSelectionView(ConfirmationView):
         self.member.max_values = min(25, size[1]) if type(size) == list else (min(25, size) if size != None else 25)
         self.confirm.disabled = True
 
-
     @property
     def embed(self) -> disnake.Embed:
         embed = super().embed
@@ -46,7 +45,6 @@ class MemberSelectionView(ConfirmationView):
         )
         return embed
 
-    
     @disnake.ui.mentionable_select(
         min_values=1,
         max_values=1,
@@ -69,7 +67,8 @@ class MemberSelectionReturnData(ConfirmationReturnData):
     @property
     def members(self) -> Optional[List[disnake.Role]]:
         return self._members
-    
+
+
 async def memberSelection(
     target: Target,
     embeds: List[disnake.Embed] = [],
@@ -146,4 +145,3 @@ async def memberSelection(
             )
         )
     )
-
